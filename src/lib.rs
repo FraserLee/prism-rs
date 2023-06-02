@@ -2,15 +2,17 @@ use quick_js::Context;
 
 const PRISM_JS: &str = include_str!("../prism/prism.js");
 
+// not publicly exported
+type PrismContext = Context;
+
 /// initialize prism.js
-pub fn init() -> Context {
+pub fn init() -> PrismContext {
     let context = Context::new().unwrap();
     context.eval(PRISM_JS).unwrap();
     // context.eval("function highlight(text, grammar, language) { return Prism.highlight(text, grammer, language); }").unwrap();
     context
 }
 
-/// Accepts a string of text as input, and returns a string with the HTML produced.
 /// text: the code to be highlighted
 /// grammar: the name of the prism.js language definition in the context
 /// language: the name of the language definition passed to grammar
@@ -30,7 +32,7 @@ pub fn init() -> Context {
 /// assert!(html.unwrap() == r#"<span class="token keyword">var</span> foo <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>"#);
 /// ```
 pub fn highlight_internal(
-    context: &mut Context,
+    context: &mut PrismContext,
     text: &str,
     grammar: &str,
     language: &str,
@@ -42,4 +44,21 @@ pub fn highlight_internal(
         .eval(&format!("Prism.highlight(text, {}, language)", grammar))
         .ok()
         .and_then(|v| v.as_str().map(|s| s.to_string()))
+}
+
+/// text: the code to be highlighted
+/// language: the language to highlight the code in
+///
+/// Example:
+/// ```rust
+/// use prism_js::{init, highlight};
+///
+/// let mut context = init();
+///
+/// let html = highlight(&mut context, "var foo = true;", "javascript");
+/// assert!(html.is_some());
+/// assert!(html.unwrap() == r#"<span class="token keyword">var</span> foo <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>"#);
+/// ```
+pub fn highlight(context: &mut PrismContext, text: &str, language: &str) -> Option<String> {
+    highlight_internal(context, text, format!("Prism.languages.{}", language).as_str(), language)
 }
