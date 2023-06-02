@@ -18,6 +18,7 @@ main = print $ take 100 fibs
 let html = highlight(&mut context, code, lang);
 println!("{}", html.unwrap());
 ```
+which outputs:
 ```html
 <span class="token hvariable">fibs</span> <span class="token operator">=</span>
 <span class="token number">0</span> <span class="token operator">:</span> <span
