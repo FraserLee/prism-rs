@@ -1,6 +1,7 @@
 use quick_js::Context;
 
 const PRISM_JS: &str = include_str!("../prism/prism.js");
+pub const PRISM_CSS: &str = include_str!("../prism/prism.css");
 
 // not publicly exported
 type PrismContext = Context;

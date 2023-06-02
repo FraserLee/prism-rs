@@ -5,7 +5,7 @@ Rust bindings for [Prism](https://prismjs.com/) syntax highlighting.
 ## Usage
 ```toml
 [dependencies]
-prism-js = "0.1.0"
+prism-js = "0.1"
 ```
 ```rust
 use prism_js::{init, highlight}
