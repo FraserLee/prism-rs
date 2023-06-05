@@ -5,7 +5,7 @@ edition = "2021"
 license = "MIT"
 readme = "readme.md"
 repository = "https://github.com/FraserLee/prism-rs"
-version = "0.1.1"
+version = "0.1.2"
 
 [dependencies]
 quick-js = "0.4.1"

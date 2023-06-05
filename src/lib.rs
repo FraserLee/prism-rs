@@ -4,7 +4,7 @@ const PRISM_JS: &str = include_str!("../prism/prism.js");
 pub const PRISM_CSS: &str = include_str!("../prism/prism.css");
 
 // not publicly exported
-type PrismContext = Context;
+pub type PrismContext = Context;
 
 /// initialize prism.js
 pub fn init() -> PrismContext {
